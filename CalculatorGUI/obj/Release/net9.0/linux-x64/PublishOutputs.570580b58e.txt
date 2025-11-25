@@ -1,0 +1,4 @@
+C:\Users\danie\calc_linux\publish\gui-linux\CalculatorGUI.pdb
+C:\Users\danie\calc_linux\publish\gui-linux\libHarfBuzzSharp.so
+C:\Users\danie\calc_linux\publish\gui-linux\libSkiaSharp.so
+C:\Users\danie\calc_linux\publish\gui-linux\CalculatorGUI

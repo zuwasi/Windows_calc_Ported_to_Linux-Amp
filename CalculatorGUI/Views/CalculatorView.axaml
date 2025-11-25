@@ -1,0 +1,150 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:CalculatorGUI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="600"
+             x:Class="CalculatorGUI.Views.CalculatorView"
+             x:DataType="vm:CalculatorViewModel">
+    
+    <UserControl.Styles>
+        <Style Selector="Button">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        
+        <Style Selector="Button.number">
+            <Setter Property="Background" Value="#F0F0F0"/>
+        </Style>
+        
+        <Style Selector="Button.operation">
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        
+        <Style Selector="Button.equals">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        
+        <Style Selector="Button.function">
+            <Setter Property="Background" Value="#D0D0D0"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+        <!-- Memory Indicator -->
+        <TextBlock Grid.Row="0" Text="{Binding Memory}" 
+                   HorizontalAlignment="Left" 
+                   Margin="10,5"
+                   FontSize="14"
+                   Foreground="Gray"/>
+        
+        <!-- Display -->
+        <Border Grid.Row="1" Background="#F5F5F5" 
+                BorderBrush="Gray" BorderThickness="1" 
+                Margin="10" Padding="15">
+            <TextBlock Text="{Binding Display}" 
+                       FontSize="32" 
+                       FontWeight="Bold"
+                       HorizontalAlignment="Right"
+                       TextWrapping="Wrap"/>
+        </Border>
+
+        <!-- Main Calculator -->
+        <Grid Grid.Row="2" Margin="10" RowDefinitions="*,*,*,*,*,*,*">
+            
+            <!-- Row 0: Memory and Clear Functions -->
+            <Grid Grid.Row="0" ColumnDefinitions="*,*,*,*,*">
+                <Button Grid.Column="0" Content="MC" Classes="function" Command="{Binding MemoryClear}"/>
+                <Button Grid.Column="1" Content="MR" Classes="function" Command="{Binding MemoryRecall}"/>
+                <Button Grid.Column="2" Content="M+" Classes="function" Command="{Binding MemoryAdd}"/>
+                <Button Grid.Column="3" Content="M-" Classes="function" Command="{Binding MemorySubtract}"/>
+                <Button Grid.Column="4" Content="MS" Classes="function" Command="{Binding MemoryStore}"/>
+            </Grid>
+
+            <!-- Row 1: Scientific Functions -->
+            <Grid Grid.Row="1" ColumnDefinitions="*,*,*,*,*">
+                <Button Grid.Column="0" Content="sin" Classes="function" Command="{Binding Sin}"/>
+                <Button Grid.Column="1" Content="cos" Classes="function" Command="{Binding Cos}"/>
+                <Button Grid.Column="2" Content="tan" Classes="function" Command="{Binding Tan}"/>
+                <Button Grid.Column="3" Content="log" Classes="function" Command="{Binding Log}"/>
+                <Button Grid.Column="4" Content="ln" Classes="function" Command="{Binding Ln}"/>
+            </Grid>
+
+            <!-- Row 2: Functions -->
+            <Grid Grid.Row="2" ColumnDefinitions="*,*,*,*,*">
+                <Button Grid.Column="0" Content="%" Classes="function" Command="{Binding Percentage}"/>
+                <Button Grid.Column="1" Content="CE" Classes="function" Command="{Binding ClearEntry}"/>
+                <Button Grid.Column="2" Content="C" Classes="function" Command="{Binding Clear}"/>
+                <Button Grid.Column="3" Content="⌫" Classes="function" Command="{Binding Backspace}"/>
+                <Button Grid.Column="4" Content="÷" Classes="operation" Command="{Binding OperationPressed}" CommandParameter="/"/>
+            </Grid>
+
+            <!-- Row 3: Functions and 7,8,9 -->
+            <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*,*">
+                <Button Grid.Column="0" Content="x²" Classes="function" Command="{Binding Square}"/>
+                <Button Grid.Column="1" Content="7" Classes="number" Command="{Binding NumberPressed}" CommandParameter="7"/>
+                <Button Grid.Column="2" Content="8" Classes="number" Command="{Binding NumberPressed}" CommandParameter="8"/>
+                <Button Grid.Column="3" Content="9" Classes="number" Command="{Binding NumberPressed}" CommandParameter="9"/>
+                <Button Grid.Column="4" Content="×" Classes="operation" Command="{Binding OperationPressed}" CommandParameter="*"/>
+            </Grid>
+
+            <!-- Row 4: Functions and 4,5,6 -->
+            <Grid Grid.Row="4" ColumnDefinitions="*,*,*,*,*">
+                <Button Grid.Column="0" Content="√" Classes="function" Command="{Binding SquareRoot}"/>
+                <Button Grid.Column="1" Content="4" Classes="number" Command="{Binding NumberPressed}" CommandParameter="4"/>
+                <Button Grid.Column="2" Content="5" Classes="number" Command="{Binding NumberPressed}" CommandParameter="5"/>
+                <Button Grid.Column="3" Content="6" Classes="number" Command="{Binding NumberPressed}" CommandParameter="6"/>
+                <Button Grid.Column="4" Content="-" Classes="operation" Command="{Binding OperationPressed}" CommandParameter="-"/>
+            </Grid>
+
+            <!-- Row 5: Functions and 1,2,3 -->
+            <Grid Grid.Row="5" ColumnDefinitions="*,*,*,*,*">
+                <Button Grid.Column="0" Content="1/x" Classes="function" Command="{Binding Reciprocal}"/>
+                <Button Grid.Column="1" Content="1" Classes="number" Command="{Binding NumberPressed}" CommandParameter="1"/>
+                <Button Grid.Column="2" Content="2" Classes="number" Command="{Binding NumberPressed}" CommandParameter="2"/>
+                <Button Grid.Column="3" Content="3" Classes="number" Command="{Binding NumberPressed}" CommandParameter="3"/>
+                <Button Grid.Column="4" Content="+" Classes="operation" Command="{Binding OperationPressed}" CommandParameter="+"/>
+            </Grid>
+
+            <!-- Row 6: ±, 0, ., = -->
+            <Grid Grid.Row="6" ColumnDefinitions="*,*,*,*,*">
+                <Button Grid.Column="0" Content="±" Classes="function" Command="{Binding Negate}"/>
+                <Button Grid.Column="1" Content="0" Classes="number" Command="{Binding NumberPressed}" CommandParameter="0"/>
+                <Button Grid.Column="2" Content="." Classes="number" Command="{Binding DecimalPressed}"/>
+                <Button Grid.Column="3" Grid.ColumnSpan="2" Content="=" Classes="equals" Command="{Binding EqualsPressed}"/>
+            </Grid>
+        </Grid>
+
+        <!-- History Panel -->
+        <Border Grid.Row="3" Background="#FAFAFA" 
+                BorderBrush="Gray" BorderThickness="1,0,1,1" 
+                Margin="10,0,10,10" 
+                MaxHeight="150">
+            <Grid RowDefinitions="Auto,*">
+                <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Background="#E8E8E8">
+                    <TextBlock Text="History" Margin="10,5" FontWeight="Bold"/>
+                    <Button Grid.Column="1" Content="Clear" 
+                            Margin="5" Padding="10,2"
+                            Command="{Binding ClearHistory}"/>
+                </Grid>
+                <ScrollViewer Grid.Row="1">
+                    <ItemsControl ItemsSource="{Binding History}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" 
+                                          Margin="10,2" 
+                                          FontSize="12"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

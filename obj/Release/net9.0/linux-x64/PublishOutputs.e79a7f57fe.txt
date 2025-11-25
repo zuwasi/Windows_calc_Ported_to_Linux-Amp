@@ -1,0 +1,2 @@
+C:\Users\danie\calc_linux\publish\linux\LinuxCalculator.pdb
+C:\Users\danie\calc_linux\publish\linux\LinuxCalculator
